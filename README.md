@@ -1,3 +1,3 @@
-This repository contains solutions to the exercises from the Full Stack open course from the University of Helsinki.
+Solutions to the exercises from the Full Stack Open course (University of Helsinki).
 
 Course webpage: https://fullstackopen.com/en/
