@@ -24,14 +24,14 @@ const App = () => {
     <div>
       <Header header = {header} />
       <div>
-        <button> good {good}</button>
-        <button> neutral {neutral}</button>
-        <button> bad {bad}</button>
+        <button onClick = {() => setGood(good + 1)}> good </button>
+        <button onClick = {() => setNeutral(neutral + 1)}> neutral </button>
+        <button onClick = {() => setBad(bad + 1)}> bad </button>
       </div>
       <h1>statistics</h1>
-      <div>good</div>
-      <div>neutral</div>
-      <div>bad</div>
+      <div>good {good}</div>
+      <div>neutral {neutral}</div>
+      <div>bad {bad}</div>
     </div>
   )
 }
