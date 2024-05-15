@@ -25,6 +25,7 @@ const StatisticLine = (props) => {
 }
 
 const Statistics = (props) => {
+  const positive = (props.states[0] / (props.states[0] + props.states[1] + props.states[2]))*100 + '%'
   return (
     <div>
       <StatisticLine text = 'good' value = {props.states[0]} />
@@ -32,7 +33,7 @@ const Statistics = (props) => {
       <StatisticLine text = 'bad' value = {props.states[2]} />
       <StatisticLine text = 'all' value = {props.states[0] + props.states[1] + props.states[2]} />
       <StatisticLine text = 'average' value = {(props.states[0] - props.states[2]) / (props.states[0] + props.states[1] + props.states[2])} />
-      <StatisticLine text = 'positive' value = {(props.states[0] / (props.states[0] + props.states[1] + props.states[2]))*100 } />
+      <StatisticLine text = 'positive' value = {positive} />
     </div>
   )
 }
