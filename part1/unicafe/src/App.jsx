@@ -3,7 +3,36 @@ import { useState } from 'react'
 const Header = (props) => {
   return (
     <div>
-    <h1>{props.header}</h1>
+    <h1>{props.name}</h1>
+    </div>
+  )
+}
+
+const Button = (props) => {
+  return (
+    <button onClick = {() => props.setter(props.state + 1)}>
+      {props.name}
+    </button>
+  )
+}
+
+const StatisticLine = (props) => {
+  return(
+    <div>
+      {props.text} {props.value}
+    </div>
+  )
+}
+
+const Statistics = (props) => {
+  return (
+    <div>
+      <StatisticLine text = 'good' value = {props.states[0]} />
+      <StatisticLine text = 'neutral' value = {props.states[1]} />
+      <StatisticLine text = 'bad' value = {props.states[2]} />
+      <StatisticLine text = 'all' value = {props.states[0] + props.states[1] + props.states[2]} />
+      <StatisticLine text = 'average' value = {(props.states[0] - props.states[2]) / (props.states[0] + props.states[1] + props.states[2])} />
+      <StatisticLine text = 'positive' value = {(props.states[0] / (props.states[0] + props.states[1] + props.states[2]))*100 } />
     </div>
   )
 }
@@ -14,7 +43,11 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-  const header = 'give feedback'
+  const title = 'give feedback'
+  const section = 'statistics'
+  const buttons = ['good', 'neutral', 'bad']
+  const states = [good, neutral, bad]
+  const setters = [setGood, setNeutral, setBad]
 
   const handleClick = () => {
     console.log('clicked')
@@ -22,16 +55,12 @@ const App = () => {
 
   return (
     <div>
-      <Header header = {header} />
-      <div>
-        <button onClick = {() => setGood(good + 1)}> good </button>
-        <button onClick = {() => setNeutral(neutral + 1)}> neutral </button>
-        <button onClick = {() => setBad(bad + 1)}> bad </button>
-      </div>
-      <h1>statistics</h1>
-      <div>good {good}</div>
-      <div>neutral {neutral}</div>
-      <div>bad {bad}</div>
+      <Header name = {title} />
+      <Button name = {buttons[0]} state = {states[0]} setter = {setters[0]} />
+      <Button name = {buttons[1]} state = {states[1]} setter = {setters[1]} />
+      <Button name = {buttons[2]} state = {states[2]} setter = {setters[2]} />
+      <Header name = {section} />
+      <Statistics states = {states} />
     </div>
   )
 }
