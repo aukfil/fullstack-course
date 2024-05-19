@@ -8,18 +8,17 @@ const Display = (props) => {
 
 const Button = (props) => {
   return(
-    <div>
       <button onClick = {props.onClick}>
         {props.text}
       </button>
-    </div>
   )
 }
 
 const App = () => {
   const [counter, setCounter] = useState(0)
 
-  const increaseByOne = () => setCounter(counter +1)
+  const increaseByOne = () => setCounter(counter + 1)
+  const decreaseByOne = () => setCounter(counter - 1)
 
   const setToZero = () => setCounter(0)
 
@@ -27,12 +26,8 @@ const App = () => {
     <div>
     <Display counter={counter} />
     <Button text = {'plus'} onClick = {increaseByOne} />
-    <button onClick = {increaseByOne}>
-      plus
-    </button>
-    <button onClick = {setToZero}>
-      zero
-    </button>
+    <Button text = {'zero'} onClick = {setToZero} />
+    <Button text = {'minus'} onClick = {decreaseByOne} />
     </div>
   )
 }
