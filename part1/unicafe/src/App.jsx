@@ -26,6 +26,15 @@ const StatisticLine = (props) => {
 
 const Statistics = (props) => {
   const positive = (props.states[0] / (props.states[0] + props.states[1] + props.states[2]))*100 + '%'
+
+  if (props.states[0] + props.states[1] + props.states[2] === 0) {
+    return (
+      <div>
+        No feedback given
+      </div>
+    )
+  }
+
   return (
     <div>
       <StatisticLine text = 'good' value = {props.states[0]} />
