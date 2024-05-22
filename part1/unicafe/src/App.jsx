@@ -25,9 +25,14 @@ const StatisticLine = (props) => {
 }
 
 const Statistics = (props) => {
+  const good = props.states[0]
+  const neutral = props.states[1]
+  const bad = props.states[2]
+  const all = props.states[0] + props.states[1] + props.states[2]
+  const average = (props.states[0] - props.states[2]) / (props.states[0] + props.states[1] + props.states[2])
   const positive = (props.states[0] / (props.states[0] + props.states[1] + props.states[2]))*100 + '%'
 
-  if (props.states[0] + props.states[1] + props.states[2] === 0) {
+  if (all === 0) {
     return (
       <div>
         No feedback given
@@ -37,11 +42,11 @@ const Statistics = (props) => {
 
   return (
     <div>
-      <StatisticLine text = 'good' value = {props.states[0]} />
-      <StatisticLine text = 'neutral' value = {props.states[1]} />
-      <StatisticLine text = 'bad' value = {props.states[2]} />
-      <StatisticLine text = 'all' value = {props.states[0] + props.states[1] + props.states[2]} />
-      <StatisticLine text = 'average' value = {(props.states[0] - props.states[2]) / (props.states[0] + props.states[1] + props.states[2])} />
+      <StatisticLine text = 'good' value = {good} />
+      <StatisticLine text = 'neutral' value = {neutral} />
+      <StatisticLine text = 'bad' value = {bad} />
+      <StatisticLine text = 'all' value = {all} />
+      <StatisticLine text = 'average' value = {average} />
       <StatisticLine text = 'positive' value = {positive} />
     </div>
   )
