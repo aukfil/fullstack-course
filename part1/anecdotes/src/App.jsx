@@ -1,5 +1,17 @@
 import { useState } from 'react'
 
+const getRandomInt = (max) => Math.floor(Math.random() * max)
+
+const Button = (props) => {
+  return(
+    <div>
+      <button onClick = {() => props.setter(getRandomInt(props.number))}>
+        next anecdote
+      </button>
+    </div>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -11,12 +23,15 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
     'The only way to go fast, is to go well.'
   ]
+
+  console.log(anecdotes.length)
    
   const [selected, setSelected] = useState(0)
 
   return (
     <div>
       {anecdotes[selected]}
+      <Button setter = {setSelected} number = {anecdotes.length} />
     </div>
   )
 }
