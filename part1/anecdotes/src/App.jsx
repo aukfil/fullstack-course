@@ -25,6 +25,15 @@ const App = () => {
   ]
 
   console.log(anecdotes.length)
+
+  const points = Array(anecdotes.length).fill(0)
+
+  console.log(points)
+
+  const copy = [...points]
+  copy[2] += 1
+
+  console.log(copy)
    
   const [selected, setSelected] = useState(0)
 
