@@ -4,11 +4,9 @@ const getRandomInt = (max) => Math.floor(Math.random() * max)
 
 const Button = (props) => {
   return(
-    <div>
       <button onClick = {() => props.setter(getRandomInt(props.number))}>
         next anecdote
       </button>
-    </div>
   )
 }
 
@@ -24,23 +22,24 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
 
-  console.log(anecdotes.length)
-
-  const points = Array(anecdotes.length).fill(0)
-
+  const [points, setPoints] = useState(Array(anecdotes.length).fill(0))
+  const [selected, setSelected] = useState(0)
+  
   console.log(points)
 
-  const copy = [...points]
-  copy[2] += 1
-
-  console.log(copy)
-   
-  const [selected, setSelected] = useState(0)
+  const handleVoting = () => {
+    const copy = [...points]
+    copy[selected] += 1
+    setPoints(copy)
+  }
 
   return (
     <div>
       {anecdotes[selected]}
+      <div>
+      <button onClick={handleVoting}>vote</button>
       <Button setter = {setSelected} number = {anecdotes.length} />
+      </div>
     </div>
   )
 }
