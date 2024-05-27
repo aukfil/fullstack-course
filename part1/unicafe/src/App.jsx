@@ -28,27 +28,43 @@ const Statistics = (props) => {
   const good = props.states[0]
   const neutral = props.states[1]
   const bad = props.states[2]
-  const all = props.states[0] + props.states[1] + props.states[2]
-  const average = (props.states[0] - props.states[2]) / (props.states[0] + props.states[1] + props.states[2])
-  const positive = (props.states[0] / (props.states[0] + props.states[1] + props.states[2]))*100 + '%'
+  const all = good + neutral + bad
+  const average = (good - bad) / all
+  const positive = (good / all) * 100 + '%'
 
   if (all === 0) {
-    return (
-      <div>
-        No feedback given
-      </div>
-    )
+    return <div>No feedback given</div>
   }
 
   return (
-    <div>
-      <StatisticLine text = 'good' value = {good} />
-      <StatisticLine text = 'neutral' value = {neutral} />
-      <StatisticLine text = 'bad' value = {bad} />
-      <StatisticLine text = 'all' value = {all} />
-      <StatisticLine text = 'average' value = {average} />
-      <StatisticLine text = 'positive' value = {positive} />
-    </div>
+    <table>
+      <tbody>
+        <tr>
+          <td>Good</td>
+          <td>{good}</td>
+        </tr>
+        <tr>
+          <td>Neutral</td>
+          <td>{neutral}</td>
+        </tr>
+        <tr>
+          <td>Bad</td>
+          <td>{bad}</td>
+        </tr>
+        <tr>
+          <td>All</td>
+          <td>{all}</td>
+        </tr>
+        <tr>
+          <td>Average</td>
+          <td>{average.toFixed(2)}</td>
+        </tr>
+        <tr>
+          <td>Positive</td>
+          <td>{positive}</td>
+        </tr>
+      </tbody>
+    </table>
   )
 }
 
@@ -58,8 +74,8 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-  const title = 'give feedback'
-  const section = 'statistics'
+  const title = 'Give feedback'
+  const section = 'Statistics'
   const buttons = ['good', 'neutral', 'bad']
   const states = [good, neutral, bad]
   const setters = [setGood, setNeutral, setBad]
