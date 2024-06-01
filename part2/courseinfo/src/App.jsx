@@ -1,35 +1,8 @@
-const Header = ({ course }) => <h1>{course}</h1>
-
-const Total = ({ exercises }) => {
-  return (
-    <p>
-      <b>Number of exercises {exercises.reduce((acc, val) => acc + val, 0)}</b>
-    </p>
-  )
-}
-
-const Part = ({ part }) => 
-  <p>
-    {part.name} {part.exercises}
-  </p>
-
-const Content = ({ parts }) => 
-  <>
-    {parts.map(part => <Part key={part.id} part={part} />)}
-  </>
-
-const Course = ({ course }) => {
-  return (
-    <div>
-      <Header course = {course.name} />
-      <Content parts = {course.parts} />
-      <Total exercises = {course.parts.map(part => part.exercises)} />
-    </div>
-  )
-}
+import Courses from './components/Courses'
 
 const App = () => {
-  const course = {
+  const courses = [
+    {
     id: 1,
     name: 'Half Stack application development',
     parts: [
@@ -47,11 +20,33 @@ const App = () => {
         name: 'State of a component',
         exercises: 14,
         id: 3
+      },
+      {
+        name: 'Redux',
+        exercises: 11,
+        id: 4
+      }
+    ]
+  },
+  {
+    id: 2,
+    name: 'Node.js',
+    parts: [
+      {
+        name: 'Routing',
+        exercises: 3,
+        id: 1
+      },
+      {
+        name: 'Middlewares',
+        exercises: 7,
+        id: 2
       }
     ]
   }
+]
 
-  return <Course course={course} />
+  return <Courses courses={courses} />
 }
 
 export default App
