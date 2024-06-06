@@ -18,6 +18,12 @@ const App = () => {
   // Event handler for the form submission event (onSubmit)
   const addName = (event) => {
     event.preventDefault()
+    const names = persons.map(person => person.name)
+
+    if (names.includes(newName)) {
+      console.log('name already exists')
+    } else {
+
     const nameObject = {
       id: nextId++,
       name: newName
@@ -25,6 +31,7 @@ const App = () => {
 
     setPersons(persons.concat(nameObject))
     setNewName('')
+    }
   }
 
   // Event handler for synchronising every change to the input with the newName state
@@ -48,7 +55,8 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      <div>{persons.map(person => <div key={person.name}>{person.name}</div>)}</div>
+      <div>{persons.map(person => <div key={person.id}>{person.name}</div>)}</div>
+      {console.log(persons)}
     </div>
   )
 }
