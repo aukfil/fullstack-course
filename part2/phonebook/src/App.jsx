@@ -21,7 +21,7 @@ const App = () => {
     const names = persons.map(person => person.name)
 
     if (names.includes(newName)) {
-      console.log('name already exists')
+      alert(`${newName} is already added to phonebook`)
     } else {
 
     const nameObject = {
@@ -36,7 +36,6 @@ const App = () => {
 
   // Event handler for synchronising every change to the input with the newName state
   const handleNameChange = (event) => {
-    console.log(event.target.value)
     setNewName(event.target.value)
   }
 
@@ -56,7 +55,6 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <div>{persons.map(person => <div key={person.id}>{person.name}</div>)}</div>
-      {console.log(persons)}
     </div>
   )
 }
