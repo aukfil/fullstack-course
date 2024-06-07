@@ -1,7 +1,36 @@
 import { useState } from 'react'
 
+// Filter component
+const Filter = ({ filter, handleFilterChange }) => (
+  <div>
+    Filter shown with <input value = {filter} onChange = {handleFilterChange}/>
+  </div>
+)
+
+// Form component
+const PersonForm = ({ addName, newName, handleNameChange, newNumber, handleNumberChange }) => (
+  <form onSubmit={addName}>
+    <div>
+      Name: <input value = {newName} onChange = {handleNameChange} />
+    </div>
+    <div>
+      Number: <input value = {newNumber} onChange = {handleNumberChange} />
+    </div>
+    <div>
+      <button type="submit">Add</button>
+    </div>
+  </form>
+)
+
+// Persons rendering component
+const Persons = ({ personsToShow }) => (
+  <div>
+    {personsToShow.map(person => <div key={person.id}>{person.name} {person.number}</div>)}
+  </div>
+)
+
 // Initialize the ID counter
-let nextId = 2
+let nextId = 5
 
 const App = () => {
   
@@ -61,23 +90,23 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-      Filter shown with <input value = {filter} onChange = {handleFilterChange}/>
-      </div>
-      <h2>Add new</h2>
-      <form onSubmit={addName}>
-        <div>
-          Name: <input value = {newName} onChange = {handleNameChange} />
-        </div>
-        <div>
-          Number: <input value = {newNumber} onChange = {handleNumberChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      <div>{personsToShow.map(person => <div key={person.id}>{person.name} {person.number}</div>)}</div>
+
+      <Filter filter={filter} handleFilterChange={handleFilterChange} />
+
+      <h3>Add new</h3>
+
+      <PersonForm 
+        addName={addName}
+        newName={newName} 
+        handleNameChange={handleNameChange} 
+        newNumber={newNumber} 
+        handleNumberChange={handleNumberChange} 
+      />
+
+      <h3>Numbers</h3>
+
+      <Persons personsToShow={personsToShow} />
+
     </div>
   )
 }
