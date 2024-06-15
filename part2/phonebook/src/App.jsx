@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 // Filter component
 const Filter = ({ filter, handleFilterChange }) => (
@@ -35,12 +36,15 @@ let nextId = 5
 const App = () => {
   
   // Array to store people's names, initialized with a first name
-  const [persons, setPersons] = useState([
-    { id: 1, name: 'Alpha', number: '1' },
-    { id: 2, name: 'Beta', number: '2' },
-    { id: 3, name: 'Gamma', number: '3' },
-    { id: 4, name: 'Delta', number: '4' }
-  ]) 
+  const [persons, setPersons] = useState([]) 
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        setPersons(response.data)
+      })
+  }, [])
 
   // State for storing input submitted by the user - controlling input with state variable
   const [newName, setNewName] = useState('')
