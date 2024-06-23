@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import axios from 'axios'
 import noteService from './services/persons'
 
 // Filter component
@@ -24,9 +25,12 @@ const PersonForm = ({ addName, newName, handleNameChange, newNumber, handleNumbe
 )
 
 // Persons rendering component
-const Persons = ({ personsToShow }) => (
+const Persons = ({ personsToShow, deletePerson }) => (
   <div>
-    {personsToShow.map(person => <div key={person.id}>{person.name} {person.number}</div>)}
+    {personsToShow.map(person => 
+    <div key={person.id}>
+      {person.name} {person.number} <button onClick={() => deletePerson(person.id)}> delete </button>
+    </div>)}
   </div>
 )
 
@@ -77,6 +81,22 @@ const App = () => {
     }
   }
 
+  // Event handler for the delete person button event (onClick)
+  const deletePerson = (id) => {
+    const url = `http://localhost:3001/persons/${id}`
+    const personToDelete = persons.find(person => person.id === id)
+
+    if (window.confirm(`Do you really want to delete ${personToDelete.name}?`)) {
+
+    axios.delete(url)
+      .then(response => {
+        setPersons(persons.filter(person => person.id !== response.data.id))
+      })
+
+    }
+
+  }
+
   // Event handler for synchronising every change to the input with the newName state
   const handleNameChange = (event) => {
     setNewName(event.target.value)
@@ -113,7 +133,10 @@ const App = () => {
 
       <h3>Numbers</h3>
 
-      <Persons personsToShow={personsToShow} />
+      <Persons 
+        personsToShow={personsToShow} 
+        deletePerson={deletePerson}
+      />
 
     </div>
   )
