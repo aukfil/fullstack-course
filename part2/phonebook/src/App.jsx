@@ -58,10 +58,10 @@ const App = () => {
   // Event handler for the form submission event (onSubmit)
   const addName = (event) => {
     event.preventDefault()
-    const names = persons.map(person => person.name)
+    const existingPerson = persons.find(person => person.name === newName)
 
-    if (names.includes(newName)) {
-      alert(`${newName} is already added to phonebook`)
+    if (existingPerson) {
+        console.log('exists')
     
     } else {
       
