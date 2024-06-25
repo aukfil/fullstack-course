@@ -61,7 +61,16 @@ const App = () => {
     const existingPerson = persons.find(person => person.name === newName)
 
     if (existingPerson) {
-        console.log('exists')
+
+      if (window.confirm("already exists. Replace the old number with a new one?")) {
+          const updatePerson = { ...existingPerson, number: newNumber}
+
+          noteService
+            .update(existingPerson.id, updatePerson)
+            .then(response => {
+              setPersons(persons.map(person => person.id !== existingPerson.id ? person : response.data))
+            })
+      }
     
     } else {
       
