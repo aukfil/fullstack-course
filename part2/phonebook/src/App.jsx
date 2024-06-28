@@ -34,6 +34,18 @@ const Persons = ({ personsToShow, deletePerson }) => (
   </div>
 )
 
+const Notification = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className='error'>
+      {message}
+    </div>
+  )
+}
+
 // Initialize the ID counter
 let nextId = 5
 
@@ -54,6 +66,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+  const [errorMessage, setErrorMessage] = useState('error happened')
 
   // Event handler for the form submission event (onSubmit)
   const addName = (event) => {
@@ -127,6 +140,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <Notification message={errorMessage} />
 
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
 
