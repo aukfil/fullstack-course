@@ -82,6 +82,12 @@ const App = () => {
             .update(existingPerson.id, updatePerson)
             .then(response => {
               setPersons(persons.map(person => person.id !== existingPerson.id ? person : response.data))
+              setErrorMessage('Updated')
+              setTimeout(() => {
+                setErrorMessage(null)
+              }, 5000)
+              setNewName('')
+              setNewNumber('')
             })
       }
     
@@ -97,6 +103,10 @@ const App = () => {
       .create(nameObject)
       .then(response => {
         setPersons(persons.concat(response.data))
+        setErrorMessage('Added')
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
         setNewName('')
         setNewNumber('')
       }) 
