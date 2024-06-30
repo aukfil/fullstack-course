@@ -66,7 +66,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
-  const [errorMessage, setErrorMessage] = useState('error happened')
+  const [errorMessage, setErrorMessage] = useState(null)
 
   // Event handler for the form submission event (onSubmit)
   const addName = (event) => {
@@ -103,7 +103,7 @@ const App = () => {
       .create(nameObject)
       .then(response => {
         setPersons(persons.concat(response.data))
-        setErrorMessage('Added')
+        setErrorMessage(`Added ${response.data.name}`)
         setTimeout(() => {
           setErrorMessage(null)
         }, 5000)
