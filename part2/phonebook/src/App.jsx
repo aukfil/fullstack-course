@@ -46,9 +46,6 @@ const Notification = ({ message }) => {
   )
 }
 
-// Initialize the ID counter
-let nextId = 5
-
 const App = () => {
   
   // Array to store people's names, initialized with a first name
@@ -75,14 +72,14 @@ const App = () => {
 
     if (existingPerson) {
 
-      if (window.confirm("already exists. Replace the old number with a new one?")) {
+      if (window.confirm(`${existingPerson.name} already exists. Replace the old number with a new one?`)) {
           const updatePerson = { ...existingPerson, number: newNumber}
 
           noteService
             .update(existingPerson.id, updatePerson)
             .then(response => {
               setPersons(persons.map(person => person.id !== existingPerson.id ? person : response.data))
-              setErrorMessage('Updated')
+              setErrorMessage(`Updated ${response.data.name}`)
               setTimeout(() => {
                 setErrorMessage(null)
               }, 5000)
@@ -94,7 +91,6 @@ const App = () => {
     } else {
       
       const nameObject = {
-      id: nextId++,
       name: newName,
       number: newNumber
     }
