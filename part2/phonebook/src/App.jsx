@@ -40,6 +40,18 @@ const Notification = ({ message }) => {
   }
 
   return (
+    <div className='notification'>
+      {message}
+    </div>
+  )
+}
+
+const Error = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
     <div className='error'>
       {message}
     </div>
@@ -63,6 +75,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+  const [notificationMessage, setNotificationMessage] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
 
   // Event handler for the form submission event (onSubmit)
@@ -79,12 +92,18 @@ const App = () => {
             .update(existingPerson.id, updatePerson)
             .then(response => {
               setPersons(persons.map(person => person.id !== existingPerson.id ? person : response.data))
-              setErrorMessage(`Updated ${response.data.name}`)
+              setNotificationMessage(`Updated ${response.data.name}`)
               setTimeout(() => {
-                setErrorMessage(null)
+                setNotificationMessage(null)
               }, 5000)
               setNewName('')
               setNewNumber('')
+            })
+            .catch(error => {
+              setErrorMessage('Information on has already been removed from the server')
+              setTimeout(() => {
+                setErrorMessage(null)
+              }, 5000)
             })
       }
     
@@ -99,9 +118,9 @@ const App = () => {
       .create(nameObject)
       .then(response => {
         setPersons(persons.concat(response.data))
-        setErrorMessage(`Added ${response.data.name}`)
+        setNotificationMessage(`Added ${response.data.name}`)
         setTimeout(() => {
-          setErrorMessage(null)
+          setNotificationMessage(null)
         }, 5000)
         setNewName('')
         setNewNumber('')
@@ -147,7 +166,8 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
 
-      <Notification message={errorMessage} />
+      <Notification message={notificationMessage} />
+      <Error message={errorMessage} />
 
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
 
