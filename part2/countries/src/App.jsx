@@ -8,7 +8,7 @@ const Filter = ({ filter, handleFilterChange }) => (
 )
 
 // Countries rendering component
-const Countries = ({ countriesToShow }) => {
+const Countries = ({ countriesToShow, setFilter }) => {
   if (countriesToShow.length > 10) {
     return(<div>Too many matches, specify another filter </div>)
   } else if (countriesToShow.length === 1) {
@@ -32,7 +32,7 @@ const Countries = ({ countriesToShow }) => {
       <div>
         {countriesToShow.map(country =>
           <div key={country.cca3}>
-            {country.name.common}
+            {country.name.common} <button onClick={() => setFilter(country.name.common)}>show</button>
           </div>
         )}
       </div>
@@ -67,7 +67,7 @@ const App = () => {
   return(
     <div>
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
-      <Countries countriesToShow={countriesToShow}/>
+      <Countries countriesToShow={countriesToShow} setFilter={setFilter}/>
     </div>
   )
 }
