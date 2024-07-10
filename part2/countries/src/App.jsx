@@ -7,11 +7,20 @@ const Filter = ({ filter, handleFilterChange }) => (
     </div>
 )
 
-const Weather = ({ country }) =>{
+const Weather = ({ country, lat, lon }) =>{
+  const [temperature, setTemperature] = useState('')
+  
+  useEffect(() => {
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid={5d5d1620cf5ea62ed84de7ef77908951}`)
+    .then(response => {
+      setTemperature(response.main.temp)
+    })
+  })
+
   return(
     <div>
       <h3>Weather in {country}</h3>
-      <p>Temperature: </p>
+      <p>Temperature: {temperature}</p>
     </div>
   )
 }
