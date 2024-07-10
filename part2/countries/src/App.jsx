@@ -7,6 +7,15 @@ const Filter = ({ filter, handleFilterChange }) => (
     </div>
 )
 
+const Weather = ({ country }) =>{
+  return(
+    <div>
+      <h3>Weather in {country}</h3>
+      <p>Temperature: </p>
+    </div>
+  )
+}
+
 // Countries rendering component
 const Countries = ({ countriesToShow, setFilter }) => {
   if (countriesToShow.length > 10) {
@@ -25,6 +34,7 @@ const Countries = ({ countriesToShow, setFilter }) => {
           )}
         </ul>
         <img src={country.flags.png} alt={`Flag of ${country.name.common}`} />
+        <Weather country={country.name.common} lat={country.latlng[0]} lon={country.latlng[1]}/>
       </div>
     )
   } else { 
