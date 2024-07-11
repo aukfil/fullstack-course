@@ -9,18 +9,19 @@ const Filter = ({ filter, handleFilterChange }) => (
 
 const Weather = ({ country, lat, lon }) =>{
   const [temperature, setTemperature] = useState('')
+  const api_key = import.meta.env.VITE_API_KEY
   
   useEffect(() => {
-    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid={5d5d1620cf5ea62ed84de7ef77908951}`)
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${api_key}`)
     .then(response => {
-      setTemperature(response.main.temp)
+      setTemperature(response.data.main.temp)
     })
   })
 
   return(
     <div>
       <h3>Weather in {country}</h3>
-      <p>Temperature: {temperature}</p>
+      <p>Temperature: {temperature} C</p>
     </div>
   )
 }
