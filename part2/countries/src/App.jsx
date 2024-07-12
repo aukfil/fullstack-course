@@ -8,20 +8,25 @@ const Filter = ({ filter, handleFilterChange }) => (
 )
 
 const Weather = ({ country, lat, lon }) =>{
-  const [temperature, setTemperature] = useState('')
+  const [weather, setWeather] = useState(null)
   const api_key = import.meta.env.VITE_API_KEY
   
   useEffect(() => {
     axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${api_key}`)
     .then(response => {
-      setTemperature(response.data.main.temp)
+      setWeather(response.data)
     })
   })
 
   return(
     <div>
       <h3>Weather in {country}</h3>
-      <p>Temperature: {temperature} C</p>
+      {weather ? (
+        <p>Temperature: {weather.main.temp} C</p>
+      ) : (
+        <p>Loading weather data...</p>
+      )}
+      
     </div>
   )
 }
