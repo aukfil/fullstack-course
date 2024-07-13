@@ -26,7 +26,6 @@ const Weather = ({ country, lat, lon }) =>{
       ) : (
         <p>Loading weather data...</p>
       )}
-      
     </div>
   )
 }
