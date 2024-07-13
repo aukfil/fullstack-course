@@ -22,7 +22,10 @@ const Weather = ({ country, lat, lon }) =>{
     <div>
       <h3>Weather in {country}</h3>
       {weather ? (
+        <div>
         <p>Temperature: {weather.main.temp} C</p>
+        <p>Wind: {weather.wind.speed}</p>
+        </div>
       ) : (
         <p>Loading weather data...</p>
       )}
