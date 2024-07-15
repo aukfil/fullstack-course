@@ -7,7 +7,7 @@ const Filter = ({ filter, handleFilterChange }) => (
     </div>
 )
 
-const Weather = ({ country, lat, lon }) =>{
+const Weather = ({ country, capital, lat, lon }) =>{
   const [weather, setWeather] = useState(null)
   const api_key = import.meta.env.VITE_API_KEY
   
@@ -20,7 +20,7 @@ const Weather = ({ country, lat, lon }) =>{
 
   return(
     <div>
-      <h3>Weather in {country}</h3>
+      <h3>Weather in {capital}</h3>
       {weather ? (
         <div>
         <p>Temperature: {weather.main.temp} C</p>
@@ -55,7 +55,7 @@ const Countries = ({ countriesToShow, setFilter }) => {
           )}
         </ul>
         <img src={country.flags.png} alt={`Flag of ${country.name.common}`} />
-        <Weather country={country.name.common} lat={country.latlng[0]} lon={country.latlng[1]}/>
+        <Weather country={country.name.common} capital={country.capital} lat={country.latlng[0]} lon={country.latlng[1]}/>
       </div>
     )
   } else { 
