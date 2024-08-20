@@ -43,6 +43,12 @@ app.delete('/api/notes/:id', (request, response) => {
   response.status(204).end()
 })
 
+app.post('/api/notes', (request, response) => {
+  const note = request.body
+  console.log(note)
+  response.json(note)
+})
+
 const PORT = 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
