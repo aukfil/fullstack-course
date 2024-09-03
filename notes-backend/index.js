@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const cors = require('cors')
@@ -24,12 +25,29 @@ let notes = [
     }
   ]
 
+const mongoose = require('mongoose')
+
+const url = process.env.MONGODB_URI;
+
+mongoose.set('strictQuery',false)
+
+mongoose.connect(url)
+
+const noteSchema = new mongoose.Schema({
+  content: String,
+  important: Boolean,
+})
+
+const Note = mongoose.model('Note', noteSchema)
+
 app.get('/', (request, response) => {
     response.send('<h1>Hello world</h1>')
 })
 
 app.get('/api/notes', (request, response) => {
-  response.json(notes)
+  Note.find({}).then(notes => {
+    response.json(notes)
+  })
 })
 
 app.get('/api/notes/:id', (request, response) => {
