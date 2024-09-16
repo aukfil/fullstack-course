@@ -130,7 +130,7 @@ const App = () => {
 
   // Event handler for the delete person button event (onClick)
   const deletePerson = (id) => {
-    const url = `http://localhost:3001/persons/${id}`
+    const url = `http://localhost:3001/api/persons/${id}`
     const personToDelete = persons.find(person => person.id === id)
 
     if (window.confirm(`Do you really want to delete ${personToDelete.name}?`)) {
