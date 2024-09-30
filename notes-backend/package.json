@@ -10,7 +10,7 @@
     "deploy": "fly deploy",
     "deploy:full": "npm run build:ui && npm run deploy",
     "logs:prod": "fly logs",
-    "scripts": "eslint ."
+    "lint": "eslint ."
   },
   "author": "Filip Auksztol",
   "license": "MIT",
