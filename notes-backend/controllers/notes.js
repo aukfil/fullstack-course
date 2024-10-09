@@ -79,3 +79,5 @@ const errorHandler = (error, request, response, next) => {
 }
 
 notesRouter.use(errorHandler)
+
+module.exports = notesRouter
