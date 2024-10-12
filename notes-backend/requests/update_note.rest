@@ -3,5 +3,5 @@ content-type: application/json
 
 {
     "content": "HTML is easy",
-    "important": true
+    "important": false
 }
