@@ -1,0 +1,20 @@
+{
+  "name": "bloglist",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \\\"Error: no test specified\\\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aukfil/fullstack-course.git#master"
+  },
+  "author": "Filip Auksztol",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aukfil/fullstack-course/issues"
+  },
+  "homepage": "https://github.com/aukfil/fullstack-course/tree/master#readme",
+  "description": ""
+}
