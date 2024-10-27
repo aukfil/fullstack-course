@@ -27,7 +27,7 @@ const longList = [
     title: "b",
     author: "Generic Author",
     url: "http://example.com",
-    likes: 7,
+    likes: 8,
     id: "671bd07ab4bcb27056785dd0"
     },
     {
@@ -47,9 +47,7 @@ const longList = [
 ]
 
 test('dummy returns one', () => {
-  const blogs = []
-
-  const result = listHelper.dummy(blogs)
+  const result = listHelper.dummy(emptyList)
   assert.strictEqual(result, 1)
 })
 
@@ -67,8 +65,37 @@ describe('total likes', () => {
 
     test('of a bigger list is calculated right', () => {
         const result = listHelper.totalLikes(longList)
-        assert.strictEqual(result, 24)
+        assert.strictEqual(result, 25)
     })
   })
 
- // describe('favorite blog')
+ describe('favorite blog', () => {
+
+    test('of empty list is null', () => {
+        const result = listHelper.favoriteBlog(emptyList)
+        assert.deepStrictEqual(result, null)
+    })
+    
+    test('when list has only one blog, is that blog', () => {
+        const result = listHelper.favoriteBlog(listWithOneBlog)
+        assert.deepStrictEqual(result, {
+            _id: '5a422aa71b54a676234d17f8',
+            title: 'Go To Statement Considered Harmful',
+            author: 'Edsger W. Dijkstra',
+            url: 'https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf',
+            likes: 5,
+            __v: 0
+        })
+    })
+    
+    test('of a bigger list is selected right', () => {
+        const result = listHelper.favoriteBlog(longList)
+        assert.deepStrictEqual(result, {
+            title: "c",
+            author: "Generic Author",
+            url: "http://example.com",
+            likes: 12,
+            id: "671bd083b4bcb27056785dd2" 
+        })
+    })
+ })
