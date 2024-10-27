@@ -13,6 +13,10 @@ const favoriteBlog = (blogs) => {
         return current.likes > favourite.likes ? current : favourite
     }, blogs[0]) 
 }
+
+const mostBlogs = (blogs) => {
+    
+}
   
   module.exports = {
     dummy, totalLikes, favoriteBlog

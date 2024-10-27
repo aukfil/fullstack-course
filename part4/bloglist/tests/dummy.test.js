@@ -18,28 +18,28 @@ const listWithOneBlog = [
 const longList = [
     {
     title: "a",
-    author: "Generic Author",
+    author: "Generic Author A",
     url: "http://example.com",
     likes: 5,
     id: "671bd06db4bcb27056785dce"
     },
     {
     title: "b",
-    author: "Generic Author",
+    author: "Generic Author A",
     url: "http://example.com",
     likes: 8,
     id: "671bd07ab4bcb27056785dd0"
     },
     {
     title: "c",
-    author: "Generic Author",
+    author: "Generic Author A",
     url: "http://example.com",
     likes: 12,
     id: "671bd083b4bcb27056785dd2"
     },
     {
     title: "d",
-    author: "Generic Author",
+    author: "Generic Author B",
     url: "http://example.com",
     likes: 0,
     id: "671bd08bb4bcb27056785dd4"
@@ -92,7 +92,7 @@ describe('total likes', () => {
         const result = listHelper.favoriteBlog(longList)
         assert.deepStrictEqual(result, {
             title: "c",
-            author: "Generic Author",
+            author: "Generic Author A",
             url: "http://example.com",
             likes: 12,
             id: "671bd083b4bcb27056785dd2" 
