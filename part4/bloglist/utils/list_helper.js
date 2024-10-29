@@ -25,6 +25,8 @@ const mostBlogs = (blogs) => {
   const topAuthor = Object.entries(authorCounts).reduce((max, [author, count]) => {
     return count > max.blogs ? {author, blogs: count} : max
   }, {author: '', blogs: 0})
+
+  return topAuthor
 }
   
   module.exports = {
