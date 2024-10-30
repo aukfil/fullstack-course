@@ -99,3 +99,11 @@ describe('total likes', () => {
         })
     })
  })
+
+ describe('most blogs', () => {
+
+    test('of emply list is null', () => {
+        const result = listHelper.mostBlogs(emptyList)
+        assert.deepStrictEqual(result, null)
+    })
+ })
