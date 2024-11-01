@@ -106,4 +106,14 @@ describe('total likes', () => {
         const result = listHelper.mostBlogs(emptyList)
         assert.deepStrictEqual(result, null)
     })
+
+    test('when list has only one blog, is one', () => {
+        const result = listHelper.mostBlogs(listWithOneBlog)
+        assert.deepStrictEqual(result.blogs, 1)
+    })
+
+    test('of a bigger list is calculated right', () => {
+        const result = listHelper.mostBlogs(longList)
+        assert.deepStrictEqual(result.blogs, 3)
+    })
  })
