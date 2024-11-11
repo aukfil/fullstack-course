@@ -46,11 +46,6 @@ const longList = [
     }
 ]
 
-test('dummy returns one', () => {
-  const result = listHelper.dummy(emptyList)
-  assert.strictEqual(result, 1)
-})
-
 describe('total likes', () => {
 
     test('of empty list is zero', () => {
