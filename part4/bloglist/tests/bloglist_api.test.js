@@ -27,13 +27,30 @@ test('blogs are returned as json', async () => {
 
 test('unique identifier property is named id', async () => {
   const response = await api.get('/api/blogs')
-  console.log(response.body)
   const blog = response.body[0]
   assert.strictEqual(
     typeof blog.id !== 'undefined',
     true,
     'blog.id should be defined'
   )
+})
+
+test('a blog post can be succesfully added', async () => {
+  const newBlog = {
+    title: 'Blog C',
+    author: 'Author C',
+    url: 'blog.com/C',
+    likes: 1
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const blogsAtEnd = await helper.blogsInDb()
+  assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1)
 })
 
 after(async () => {
