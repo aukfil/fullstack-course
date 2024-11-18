@@ -83,6 +83,20 @@ test('missing title property defaults to 400', async () => {
 
 })
 
+test('missing url property defaults to 400', async () => {
+  const newBlog = {
+    title: 'Blog without likes',
+    author: 'Test author'
+  }
+
+  const response = await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+    .expect('Content-Type', /application\/json/)
+
+})
+
 after(async () => {
   await mongoose.connection.close()
 })

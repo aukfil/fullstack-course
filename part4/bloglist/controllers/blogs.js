@@ -7,7 +7,7 @@ blogsRouter.get('/', async (request, response) => {
   })
   
 blogsRouter.post('/', async (request, response) => {
-  if (!request.body.title) {
+  if (!request.body.title || !request.body.url) {
     return response.status(400).json({
       error: 'title is required'
     })
