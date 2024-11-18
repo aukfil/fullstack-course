@@ -69,6 +69,20 @@ test('missing likes property defaults to zero', async () => {
   assert.strictEqual(response.body.likes, 0, 'likes should default to 0')
 })
 
+test('missing title property defaults to 400', async () => {
+  const newBlog = {
+    author: 'Test author',
+    url: 'test.com/no-likes'
+  }
+
+  const response = await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+    .expect('Content-Type', /application\/json/)
+
+})
+
 after(async () => {
   await mongoose.connection.close()
 })
