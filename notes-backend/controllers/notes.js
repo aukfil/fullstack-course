@@ -34,7 +34,17 @@ notesRouter.put('/:id', (request, response, next) => {
 notesRouter.post('/', async (request, response) => {
   const body = request.body
 
+  if (!body.content) {
+    return response.status(400).json({ error: 'content is required' })
+  }
+  if (!body.userId) {
+    return response.status(400).json({ error: 'userId is required' })
+  }
+
   const user = await User.findById(body.userId)
+  if (!user) {
+    return response.status(400).json({ error: 'user not found' })
+  }
 
   const note = new Note({
     content: body.content,
