@@ -1,6 +1,15 @@
 const notesRouter = require('express').Router()
+const jwt = require('jsonwebtoken')
 const Note = require('../models/note')
 const User = require('../models/user')
+
+const getTokenFrom = request => {
+  const authorization = request.get('authorization')
+  if (authorization && authorization.startsWith('Bearer ')) {
+    return authorization.replace('Bearer ', '')
+  }
+  return null
+}
 
 notesRouter.get('/', async(request, response) => {
   const notes = await Note.find({})
@@ -41,7 +50,12 @@ notesRouter.post('/', async (request, response) => {
     return response.status(400).json({ error: 'userId is required' })
   }
 
-  const user = await User.findById(body.userId)
+  const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token invalid' })
+  }
+
+  const user = await User.findById(decodedToken.id)
   if (!user) {
     return response.status(400).json({ error: 'user not found' })
   }
@@ -72,6 +86,8 @@ const errorHandler = (error, request, response, next) => {
     return response.status(400).send({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
     return response.status(400).json({ error: error.message })
+  } else if (error.name ===  'JsonWebTokenError') {
+    return response.status(401).json({ error: 'token invalid' })
   }
 
   next(error)
