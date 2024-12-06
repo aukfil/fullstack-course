@@ -16,9 +16,9 @@ blogsRouter.get('/:id', async (request, response, next) => {
   } else {
     response.status(404).end()
   }
-} catch (error) {
-  next(error)
-}
+  } catch (error) {
+    next(error)
+  }
 })
   
 blogsRouter.post('/', async (request, response) => {
