@@ -10,8 +10,21 @@ const User = require('../models/user')
 const Blog = require('../models/blog')
 
 describe('tests for blog posting', () => {
+let token = null
+
 beforeEach(async () => {
     await Blog.deleteMany({})
+    await User.deleteMany({})
+
+    const passwordHash = await bcrypt.hash('testpassword', 10)
+    const user = new User({ username: 'testuser', passwordHash })
+    await user.save()
+
+    const response = await api
+      .post('/api/login')
+      .send({ username: 'testuser', password: 'testpassword' })
+    
+    token = response.body.token
 
     let blogObject = new Blog(helper.initialBlogs[0])
     await blogObject.save()
@@ -47,6 +60,7 @@ test('a blog post can be succesfully added', async () => {
 
   await api
     .post('/api/blogs')
+    .set('Authorization', `Bearer ${token}`)
     .send(newBlog)
     .expect(201)
     .expect('Content-Type', /application\/json/)
