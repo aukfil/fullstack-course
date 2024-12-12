@@ -26,11 +26,12 @@ beforeEach(async () => {
     
     token = response.body.token
 
-    let blogObject = new Blog(helper.initialBlogs[0])
-    await blogObject.save()
-  
-    blogObject = new Blog(helper.initialBlogs[1])
-    await blogObject.save()
+    const initialBlogs = helper.initialBlogs.map(blog => ({
+      ...blog,
+      user: user._id
+    }))
+
+    await Blog.insertMany(initialBlogs)
   })
 
 test('blogs are returned as json', async () => {
@@ -122,6 +123,7 @@ test('deletion of a blog succeeds with status code 204 if id is valid', async ()
 
   await api
     .delete(`/api/blogs/${blogToDelete.id}`)
+    .set('Authorization', `Bearer ${token}`)
     .expect(204)
 
   const blogsAtEnd = await helper.blogsInDb()
