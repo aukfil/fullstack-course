@@ -154,6 +154,28 @@ test('updating number of likes for a blog succeeds', async () => {
   assert.strictEqual(updatedBlogInDb.likes, blogToUpdate.likes + 1)
 })
 
+test('adding a blog fails with status code 401 if token is not provided', async () => {
+  const blogsAtStart = await helper.blogsInDb()
+  
+  const newBlog = {
+    title: 'Unauthorized Blog',
+    author: 'No Token Author',
+    url: 'unauthorized.com',
+    likes: 0
+  }
+
+  const result = await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(401)
+    .expect('Content-Type', /application\/json/)
+
+  assert(result.body.error.includes('token missing'))
+  
+  const blogsAtEnd = await helper.blogsInDb()
+  assert.strictEqual(blogsAtEnd.length, blogsAtStart.length)
+})
+
 })
 
 describe('when there is initially one user in db', () => {
