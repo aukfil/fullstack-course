@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import Note from './components/Note'
 import noteService from './services/notes'
 
@@ -61,7 +60,6 @@ const App = () => {
 
 
   const toggleImportanceOf = (id) => {
-    const url = `http://localhost:3001/notes/${id}`
     const note = notes.find(n => n.id === id)
     const changedNote = { ...note, important: !note.important }
 
@@ -70,7 +68,7 @@ const App = () => {
       .then(returnedNote => {
         setNotes(notes.map(note => note.id !== id ? note : returnedNote))
       })
-      .catch(error => {
+      .catch(() => {
         setErrorMessage(
           `Note '${note.content}' was already removed from the server`
         )
@@ -81,6 +79,8 @@ const App = () => {
       })
   }
 
+  // Disable prop validation for this component
+  // eslint-disable-next-line react/prop-types
   const Notification = ({ message }) => {
     if (message === null) {
       return null
